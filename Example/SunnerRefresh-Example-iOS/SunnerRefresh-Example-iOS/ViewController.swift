@@ -9,20 +9,43 @@
 import UIKit
 import SunnerRefresh
 
+let cellID = "cellID"
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        TestSunnerRefresh.test()
+        let tableview = UITableView(frame: self.view.bounds, style: .plain)
+        tableview.backgroundColor = .yellow
+        tableview.delegate = self
+        tableview.dataSource = self
+        self.view.addSubview(tableview)
+        tableview.contentInsetAdjustmentBehavior = .never
+        tableview.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellID)
+        
+        let header = SunnerRefreshHeader()
+        tableview.sunnerRefreshHeader = header
+        tableview.sunnerRefreshHeader?.backgroundColor = .red
+        
+        let footer = SunnerRefreshFooter()
+        tableview.sunnerRefreshFooter = footer
+        tableview.sunnerRefreshFooter?.backgroundColor = .blue
     }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 100
     }
-
-
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
+        cell.detailTextLabel?.text = "detail text label"
+        cell.textLabel?.text = "text label"
+        return cell
+    }
 }
 
