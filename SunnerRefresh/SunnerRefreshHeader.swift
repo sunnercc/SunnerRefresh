@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class SunnerRefreshHeader: UIView, RefreshProtocol {
+public class SunnerRefreshHeader: UIView, RefreshProtocol {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,7 +19,7 @@ open class SunnerRefreshHeader: UIView, RefreshProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    open override func layoutSubviews() {
+    public override func layoutSubviews() {
         
         self.sunner_w = sunnerRefreshFooterWidth
         self.sunner_h = sunnerRefreshFooterHeight

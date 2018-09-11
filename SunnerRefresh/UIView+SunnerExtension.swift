@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    open var sunner_x: CGFloat {
+    internal var sunner_x: CGFloat {
         set {
             self.frame.origin.x = newValue
         }
@@ -19,7 +19,7 @@ extension UIView {
         }
     }
     
-    open var sunner_y: CGFloat {
+    internal var sunner_y: CGFloat {
         set {
             self.frame.origin.y = newValue
         }
@@ -28,7 +28,7 @@ extension UIView {
         }
     }
     
-    open var sunner_w: CGFloat {
+    internal var sunner_w: CGFloat {
         set {
             self.frame.size.width = newValue
         }
@@ -37,7 +37,7 @@ extension UIView {
         }
     }
     
-    open var sunner_h: CGFloat {
+    internal var sunner_h: CGFloat {
         set {
             self.frame.size.height = newValue
         }

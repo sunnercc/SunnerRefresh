@@ -8,9 +8,9 @@
 
 import UIKit
 
-var sunnerRefreshHeaderHeight: CGFloat = 54.0
-var sunnerRefreshHeaderWidth: CGFloat = UIScreen.main.bounds.size.width
+internal var sunnerRefreshHeaderHeight: CGFloat = 54.0
+internal var sunnerRefreshHeaderWidth: CGFloat = UIScreen.main.bounds.size.width
 
-var sunnerRefreshFooterHeight: CGFloat = 44.0
-var sunnerRefreshFooterWidth: CGFloat = UIScreen.main.bounds.size.width
+internal var sunnerRefreshFooterHeight: CGFloat = 44.0
+internal var sunnerRefreshFooterWidth: CGFloat = UIScreen.main.bounds.size.width
 

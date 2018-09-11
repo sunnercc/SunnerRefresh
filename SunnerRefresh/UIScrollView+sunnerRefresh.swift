@@ -13,7 +13,7 @@ var sunnerRefreshFooterKey = "sunnerRefreshFooterKey"
 
 extension UIScrollView {
     
-    open var sunnerRefreshHeader: SunnerRefreshHeader? {
+    public var sunnerRefreshHeader: SunnerRefreshHeader? {
         get {
             if let header = objc_getAssociatedObject(self, &sunnerRefreshHeaderKey) as? SunnerRefreshHeader {
                 return header
@@ -33,7 +33,7 @@ extension UIScrollView {
         }
     }
     
-    open var sunnerRefreshFooter: SunnerRefreshFooter? {
+    public var sunnerRefreshFooter: SunnerRefreshFooter? {
         get {
             if let footer = objc_getAssociatedObject(self, &sunnerRefreshFooterKey) as? SunnerRefreshFooter {
                 return footer
