@@ -8,7 +8,10 @@
 
 import UIKit
 
-public class SunnerRefreshHeader: UIView, RefreshProtocol {
+public class SunnerRefreshHeader: UIView {
+    
+    var target: NSObject? = nil
+    var action: Selector? = nil
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,5 +28,14 @@ public class SunnerRefreshHeader: UIView, RefreshProtocol {
         self.sunner_h = sunnerRefreshFooterHeight
         self.sunner_x = 0
         self.sunner_y = -self.sunner_h
+    }
+}
+
+
+extension SunnerRefreshHeader : RefreshProtocol {
+    
+    public func refreshing(target: NSObject, action: Selector) {
+        self.target = target
+        self.action = action
     }
 }

@@ -28,10 +28,20 @@ class ViewController: UIViewController {
         let header = SunnerRefreshHeader()
         tableview.sunnerRefreshHeader = header
         tableview.sunnerRefreshHeader?.backgroundColor = .red
+        tableview.sunnerRefreshHeader?.refreshing(target: self, action: #selector(self.headerAction))
         
         let footer = SunnerRefreshFooter()
         tableview.sunnerRefreshFooter = footer
         tableview.sunnerRefreshFooter?.backgroundColor = .blue
+        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
+    }
+    
+    @objc func headerAction() {
+        print("headerAction")
+    }
+    
+    @objc func footerAction() {
+        print("footerAction")
     }
 }
 
