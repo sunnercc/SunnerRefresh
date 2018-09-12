@@ -9,8 +9,11 @@
 import UIKit
 
 internal var sunnerRefreshHeaderHeight: CGFloat = 54.0
-internal var sunnerRefreshHeaderWidth: CGFloat = UIScreen.main.bounds.size.width
 
 internal var sunnerRefreshFooterHeight: CGFloat = 44.0
-internal var sunnerRefreshFooterWidth: CGFloat = UIScreen.main.bounds.size.width
+
+internal var sunnerRefreshScrollviewContentOffsetKeyPath: String = "contentOffset"
+internal var sunnerRefreshScrollviewContentSizeKeyPath: String = "contentSize"
+
+internal var sunnerRefreshScrollviewPanGesStateKeyPath: String = "state"
 

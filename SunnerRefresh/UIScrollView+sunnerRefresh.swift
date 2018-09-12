@@ -23,11 +23,12 @@ extension UIScrollView {
         set {
             if self.sunnerRefreshHeader != newValue {
                 self.sunnerRefreshHeader?.removeFromSuperview()
-                objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, nil, .OBJC_ASSOCIATION_RETAIN)
+                objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, nil, .OBJC_ASSOCIATION_ASSIGN)
                 
                 if let newValue = newValue {
+                    // sunnerRefreshHeader被insertSubview后, 不需要retain
                     self.insertSubview(newValue, at: 0)
-                    objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+                    objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
                 }
             }
         }
@@ -43,11 +44,12 @@ extension UIScrollView {
         set {
             if self.sunnerRefreshFooter != newValue {
                 self.sunnerRefreshFooter?.removeFromSuperview()
-                objc_setAssociatedObject(self, &sunnerRefreshFooterKey, nil, .OBJC_ASSOCIATION_RETAIN)
+                objc_setAssociatedObject(self, &sunnerRefreshFooterKey, nil, .OBJC_ASSOCIATION_ASSIGN)
                 
                 if let newValue = newValue {
+                    // sunnerRefreshFooter被insertSubview后, 不需要retain
                     self.insertSubview(newValue, at: 0)
-                    objc_setAssociatedObject(self, &sunnerRefreshFooterKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+                    objc_setAssociatedObject(self, &sunnerRefreshFooterKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
                 }
             }
         }

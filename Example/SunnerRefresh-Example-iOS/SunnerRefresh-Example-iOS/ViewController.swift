@@ -22,18 +22,18 @@ class ViewController: UIViewController {
         tableview.delegate = self
         tableview.dataSource = self
         self.view.addSubview(tableview)
-        tableview.contentInsetAdjustmentBehavior = .never
+//        tableview.contentInsetAdjustmentBehavior = .never
         tableview.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellID)
         
         let header = SunnerRefreshHeader()
         tableview.sunnerRefreshHeader = header
         tableview.sunnerRefreshHeader?.backgroundColor = .red
         tableview.sunnerRefreshHeader?.refreshing(target: self, action: #selector(self.headerAction))
-        
-        let footer = SunnerRefreshFooter()
-        tableview.sunnerRefreshFooter = footer
-        tableview.sunnerRefreshFooter?.backgroundColor = .blue
-        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
+//
+//        let footer = SunnerRefreshFooter()
+//        tableview.sunnerRefreshFooter = footer
+//        tableview.sunnerRefreshFooter?.backgroundColor = .blue
+//        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
     }
     
     @objc func headerAction() {

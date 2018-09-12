@@ -21,7 +21,7 @@ public class SunnerRefreshFooter: UIView, RefreshProtocol {
 
     public override func layoutSubviews() {
         
-        self.sunner_w = sunnerRefreshFooterWidth
+        self.sunner_w = UIScreen.main.bounds.size.width
         self.sunner_h = sunnerRefreshFooterHeight
         self.sunner_x = 0
         if let superv = self.superview as? UIScrollView {
