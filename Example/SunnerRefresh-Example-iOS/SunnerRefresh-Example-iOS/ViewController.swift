@@ -57,5 +57,8 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = "text label"
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("test")
+    }
 }
 

@@ -24,11 +24,8 @@ public class SunnerRefreshHeader: UIView {
     }
     
     public override func layoutSubviews() {
-        
-        self.sunner_w = (self.scrollview?.frame.size.width)!
-        self.sunner_h = sunnerRefreshFooterHeight
-        self.sunner_x = 0
-        self.sunner_y = -((self.scrollview?.frame.minY)! + self.sunner_h)
+        super.layoutSubviews()
+        //
     }
     
     public override func willMove(toSuperview newSuperview: UIView?) {
@@ -38,7 +35,7 @@ public class SunnerRefreshHeader: UIView {
                 self.removeObservers()
                 self.scrollview = newSuperview as? UIScrollView
                 self.addObservers()
-                self.setNeedsLayout()
+                self.layoutSize()
             }
         }
         else
@@ -54,6 +51,16 @@ extension SunnerRefreshHeader : RefreshProtocol {
     public func refreshing(target: NSObject, action: Selector) {
         self.target = target
         self.action = action
+    }
+}
+
+extension SunnerRefreshHeader {
+    
+    fileprivate func layoutSize() {
+        self.sunner_w = (self.scrollview?.frame.size.width)!
+        self.sunner_h = sunnerRefreshHeaderHeight
+        self.sunner_x = 0
+        self.sunner_y = -self.sunner_h
     }
 }
 
@@ -76,7 +83,23 @@ extension SunnerRefreshHeader {
             let keyPath = keyPath {
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentOffsetKeyPath
             {
-                
+                let offsetY = (self.scrollview?.contentOffset.y)!
+                let insetT = (self.scrollview?.sunner_insetT)!
+                let dis = offsetY + insetT
+                if dis >= 0
+                {
+                    // header未显示
+                }
+                else if dis < 0 && dis > -sunnerRefreshHeaderHeight
+                {
+                    // header显示一部分
+                    print("refresh")
+                }
+                else if dis <= -sunnerRefreshHeaderHeight
+                {
+                    // header完全显示
+                    print("refreshing")
+                }
             }
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentSizeKeyPath
             {

@@ -55,3 +55,47 @@ extension UIScrollView {
         }
     }
 }
+
+extension UIScrollView {
+    
+    public var sunner_insetT: CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.adjustedContentInset.top
+            } else {
+                return self.contentInset.top
+            }
+        }
+    }
+    
+    public var sunner_insetB: CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.adjustedContentInset.bottom
+            } else {
+                return self.contentInset.bottom
+            }
+        }
+    }
+    
+    public var sunner_insetL: CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.adjustedContentInset.left
+            } else {
+                return self.contentInset.left
+            }
+        }
+    }
+    
+    public var sunner_insetR: CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.adjustedContentInset.right
+            } else {
+                return self.contentInset.right
+            }
+        }
+    }
+    
+}
