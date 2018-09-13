@@ -24,6 +24,11 @@ public class SunnerRefreshBase: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layoutSize()
+    }
+    
     public override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         if let newSuperview = newSuperview {
@@ -31,7 +36,7 @@ public class SunnerRefreshBase: UIView {
                 self.removeObservers()
                 self.scrollview = newSuperview as? UIScrollView
                 self.addObservers()
-                self.layoutSize()
+                self.setNeedsLayout()
             }
         }
         else

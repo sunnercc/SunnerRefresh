@@ -32,11 +32,11 @@ class ViewController: UIViewController {
         tableview.sunnerRefreshHeader = header
         tableview.sunnerRefreshHeader?.backgroundColor = .red
         tableview.sunnerRefreshHeader?.refreshing(target: self, action: #selector(self.headerAction))
-//
-//        let footer = SunnerRefreshFooter()
-//        tableview.sunnerRefreshFooter = footer
-//        tableview.sunnerRefreshFooter?.backgroundColor = .blue
-//        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
+
+        let footer = SunnerRefreshFooter()
+        tableview.sunnerRefreshFooter = footer
+        tableview.sunnerRefreshFooter?.backgroundColor = .blue
+        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
     }
     
     @objc func headerAction() {
@@ -58,6 +58,10 @@ class ViewController: UIViewController {
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
     }
     
