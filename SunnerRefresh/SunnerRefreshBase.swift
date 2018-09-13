@@ -8,14 +8,77 @@
 
 import UIKit
 
-class SunnerRefreshBase: UIView {
+public class SunnerRefreshBase: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var target: NSObject? = nil
+    var action: Selector? = nil
+    var scrollview: UIScrollView? = nil
+    var state: SunnerRefreshState = .idle
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        ///
     }
-    */
+    
+    required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    public override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+        if let newSuperview = newSuperview {
+            if newSuperview.isKind(of: UIScrollView.classForCoder()) {
+                self.removeObservers()
+                self.scrollview = newSuperview as? UIScrollView
+                self.addObservers()
+                self.layoutSize()
+            }
+        }
+        else
+        {
+            self.removeObservers()
+            self.scrollview = nil
+        }
+    }
+    
+    public func layoutSize() {}
+    public func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {}
+    public func beginRefresh() {
+        self.loadRefreshTask()
+    }
+    public func endRefresh() {}
+}
 
+
+extension SunnerRefreshBase {
+    
+    public func refreshing(target: NSObject, action: Selector) {
+        self.target = target
+        self.action = action
+    }
+    
+    fileprivate func loadRefreshTask() {
+        if let target = self.target, let action = self.action {
+            target.perform(action)
+        }
+    }
+}
+
+extension SunnerRefreshBase {
+    
+    fileprivate func addObservers() {
+        self.scrollview?.addObserver(self, forKeyPath: sunnerRefreshScrollviewContentOffsetKeyPath, options: .new, context: nil)
+        self.scrollview?.addObserver(self, forKeyPath: sunnerRefreshScrollviewContentSizeKeyPath, options: .new, context: nil)
+        self.scrollview?.panGestureRecognizer.addObserver(self, forKeyPath: sunnerRefreshScrollviewPanGesStateKeyPath, options: .new, context: nil)
+    }
+    
+    fileprivate func removeObservers() {
+        self.scrollview?.removeObserver(self, forKeyPath: sunnerRefreshScrollviewContentOffsetKeyPath)
+        self.scrollview?.removeObserver(self, forKeyPath: sunnerRefreshScrollviewContentSizeKeyPath)
+        self.scrollview?.panGestureRecognizer.removeObserver(self, forKeyPath: sunnerRefreshScrollviewPanGesStateKeyPath)
+    }
+    
+    public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        self.refreshObserveValue(forKeyPath: keyPath, of: object, change: change, context: context)
+    }
 }

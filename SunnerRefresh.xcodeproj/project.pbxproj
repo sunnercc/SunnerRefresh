@@ -13,7 +13,6 @@
 		135421E42147A929005E015C /* UIScrollView+sunnerRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421E32147A929005E015C /* UIScrollView+sunnerRefresh.swift */; };
 		135421E62147A9E8005E015C /* SunnerRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421E52147A9E8005E015C /* SunnerRefreshHeader.swift */; };
 		135421E82147AF16005E015C /* SunnerRefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421E72147AF16005E015C /* SunnerRefreshFooter.swift */; };
-		135421EA2147AFAB005E015C /* RefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421E92147AFAB005E015C /* RefreshProtocol.swift */; };
 		135421EC2147B941005E015C /* SunnerRefreshConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421EB2147B941005E015C /* SunnerRefreshConst.swift */; };
 		135421EE2147B9ED005E015C /* UIView+SunnerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135421ED2147B9ED005E015C /* UIView+SunnerExtension.swift */; };
 /* End PBXBuildFile section */
@@ -27,7 +26,6 @@
 		135421E32147A929005E015C /* UIScrollView+sunnerRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+sunnerRefresh.swift"; sourceTree = "<group>"; };
 		135421E52147A9E8005E015C /* SunnerRefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunnerRefreshHeader.swift; sourceTree = "<group>"; };
 		135421E72147AF16005E015C /* SunnerRefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunnerRefreshFooter.swift; sourceTree = "<group>"; };
-		135421E92147AFAB005E015C /* RefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshProtocol.swift; sourceTree = "<group>"; };
 		135421EB2147B941005E015C /* SunnerRefreshConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SunnerRefreshConst.swift; sourceTree = "<group>"; };
 		135421ED2147B9ED005E015C /* UIView+SunnerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SunnerExtension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +66,6 @@
 				134533A9214A1850005F5956 /* SunnerRefreshBase.swift */,
 				135421E52147A9E8005E015C /* SunnerRefreshHeader.swift */,
 				135421E72147AF16005E015C /* SunnerRefreshFooter.swift */,
-				135421E92147AFAB005E015C /* RefreshProtocol.swift */,
 				135421EB2147B941005E015C /* SunnerRefreshConst.swift */,
 				135421ED2147B9ED005E015C /* UIView+SunnerExtension.swift */,
 				134533A7214A0275005F5956 /* SunnerRefreshState.swift */,
@@ -156,7 +153,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				135421E62147A9E8005E015C /* SunnerRefreshHeader.swift in Sources */,
-				135421EA2147AFAB005E015C /* RefreshProtocol.swift in Sources */,
 				135421E82147AF16005E015C /* SunnerRefreshFooter.swift in Sources */,
 				134533A8214A0275005F5956 /* SunnerRefreshState.swift in Sources */,
 				135421EC2147B941005E015C /* SunnerRefreshConst.swift in Sources */,

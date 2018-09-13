@@ -8,24 +8,14 @@
 
 import UIKit
 
-public class SunnerRefreshFooter: UIView, RefreshProtocol {
+public class SunnerRefreshFooter: SunnerRefreshBase {
 
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        //
+    public override func layoutSize() {
+        
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    public override func layoutSubviews() {
+    public override func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         
-        self.sunner_w = UIScreen.main.bounds.size.width
-        self.sunner_h = sunnerRefreshFooterHeight
-        self.sunner_x = 0
-        if let superv = self.superview as? UIScrollView {
-            self.sunner_y = superv.frame.minY + superv.contentSize.height
-        }
     }
+    
 }
