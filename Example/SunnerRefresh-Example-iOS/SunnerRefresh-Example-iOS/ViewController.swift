@@ -13,6 +13,8 @@ let cellID = "cellID"
 
 class ViewController: UIViewController {
 
+    var tableview: UITableView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -24,6 +26,7 @@ class ViewController: UIViewController {
         self.view.addSubview(tableview)
 //        tableview.contentInsetAdjustmentBehavior = .never
         tableview.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellID)
+        self.tableview = tableview
         
         let header = SunnerRefreshHeader()
         tableview.sunnerRefreshHeader = header
@@ -37,7 +40,14 @@ class ViewController: UIViewController {
     }
     
     @objc func headerAction() {
-        print("headerAction")
+        DispatchQueue.global().async {
+            for i in 0...100000 {
+                print(i)
+            }
+            DispatchQueue.main.async {
+                self.tableview?.sunnerRefreshHeader?.endRefresh()
+            }
+        }
     }
     
     @objc func footerAction() {

@@ -13,6 +13,8 @@ public class SunnerRefreshHeader: UIView {
     var target: NSObject? = nil
     var action: Selector? = nil
     var scrollview: UIScrollView? = nil
+    var state: SunnerRefreshState = .idle
+    var offset: CGPoint = .zero
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,6 +81,7 @@ extension SunnerRefreshHeader {
     }
     
     public override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        print(Thread.current)
         if let object = object as? NSObject,
             let keyPath = keyPath {
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentOffsetKeyPath
@@ -88,17 +91,15 @@ extension SunnerRefreshHeader {
                 let dis = offsetY + insetT
                 if dis >= 0
                 {
-                    // header未显示
+                    self.state = .idle
                 }
-                else if dis < 0 && dis > -sunnerRefreshHeaderHeight
+                else if dis < 0 && dis >= -sunnerRefreshHeaderHeight
                 {
-                    // header显示一部分
-                    print("refresh")
+                    self.state = .drag
                 }
-                else if dis <= -sunnerRefreshHeaderHeight
+                else if dis < -sunnerRefreshHeaderHeight
                 {
-                    // header完全显示
-                    print("refreshing")
+                    self.state = .will
                 }
             }
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentSizeKeyPath
@@ -107,8 +108,42 @@ extension SunnerRefreshHeader {
             }
             if object.isEqual(self.scrollview?.panGestureRecognizer) && keyPath == sunnerRefreshScrollviewPanGesStateKeyPath
             {
-                
+                if self.scrollview?.panGestureRecognizer.state == UIGestureRecognizerState.ended {
+                    if self.state == .refreshing {
+                        return
+                    }
+                    else if self.state == .will {
+                        self.beginRefresh()
+                    }
+                }
             }
+        }
+    }
+}
+
+extension SunnerRefreshHeader {
+    
+    public func beginRefresh() {
+        DispatchQueue.main.async {
+            self.state = .refreshing
+            let y = -(self.scrollview?.sunner_insetT)!-sunnerRefreshHeaderHeight
+            let offset = CGPoint(x: (self.scrollview?.contentOffset.x)!, y: y)
+            self.scrollview?.setContentOffset(offset, animated: true)
+            self.loadRefreshTask()
+        }
+    }
+    
+    public func endRefresh() {
+        DispatchQueue.main.async {
+            let y = -(self.scrollview?.sunner_insetT)!
+            let offset = CGPoint(x: (self.scrollview?.contentOffset.x)!, y: y)
+            self.scrollview?.setContentOffset(offset, animated: true)
+        }
+    }
+    
+    fileprivate func loadRefreshTask() {
+        if let target = self.target, let action = self.action {
+            target.perform(action)
         }
     }
 }
