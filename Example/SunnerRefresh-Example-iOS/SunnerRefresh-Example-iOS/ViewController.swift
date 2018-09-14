@@ -28,15 +28,15 @@ class ViewController: UIViewController {
         tableview.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellID)
         self.tableview = tableview
         
-        let header = SunnerRefreshHeader()
+        let header = SunnerRefreshHeader(inView: tableview)
+        header.backgroundColor = .red
+        header.refreshing(target: self, action: #selector(self.headerAction))
         tableview.sunnerRefreshHeader = header
-        tableview.sunnerRefreshHeader?.backgroundColor = .red
-        tableview.sunnerRefreshHeader?.refreshing(target: self, action: #selector(self.headerAction))
 
-        let footer = SunnerRefreshFooter()
+        let footer = SunnerRefreshFooter(inView: tableview)
+        footer.backgroundColor = .blue
+        footer.refreshing(target: self, action: #selector(self.footerAction))
         tableview.sunnerRefreshFooter = footer
-        tableview.sunnerRefreshFooter?.backgroundColor = .blue
-        tableview.sunnerRefreshFooter?.refreshing(target: self, action: #selector(self.footerAction))
     }
     
     @objc func headerAction() {

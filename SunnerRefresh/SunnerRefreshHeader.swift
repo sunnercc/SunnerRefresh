@@ -9,13 +9,14 @@
 import UIKit
 
 public class SunnerRefreshHeader: SunnerRefreshBase {
-    
-    override public func layoutSize() {
-        super.layoutSize()
-        self.sunner_w = (self.scrollview?.frame.size.width)!
-        self.sunner_h = sunnerRefreshHeaderHeight
-        self.sunner_x = 0
-        self.sunner_y = -self.sunner_h
+
+    public override func layoutFrame(scrollview: UIScrollView) -> CGRect {
+        let w: CGFloat = (self.scrollview?.sunner_w)!
+        let h: CGFloat = sunnerRefreshHeaderHeight
+        let x: CGFloat = 0
+        let y: CGFloat = (self.scrollview?.sunner_insetT)!
+        let rect = CGRect(x: x, y: y, width: w, height: h)
+        return rect
     }
     
     override public func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

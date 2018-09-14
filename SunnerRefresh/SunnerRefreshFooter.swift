@@ -10,12 +10,13 @@ import UIKit
 
 public class SunnerRefreshFooter: SunnerRefreshBase {
 
-    public override func layoutSize() {
-        super.layoutSize()
-        self.sunner_w = (self.scrollview?.frame.size.width)!
-        self.sunner_h = sunnerRefreshFooterHeight
-        self.sunner_x = 0
-        self.sunner_y = (self.scrollview?.contentSize.height)! + 20
+    public override func layoutFrame(scrollview: UIScrollView) -> CGRect {
+        let w: CGFloat = (self.scrollview?.sunner_w)!
+        let h: CGFloat = sunnerRefreshFooterHeight
+        let x: CGFloat = 0
+        let y: CGFloat = (self.scrollview?.frame.maxY)! - (self.scrollview?.sunner_insetB)! - h
+        let rect = CGRect(x: x, y: y, width: w, height: h)
+        return rect
     }
     
     public override func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

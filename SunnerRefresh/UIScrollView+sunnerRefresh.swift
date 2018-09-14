@@ -15,43 +15,19 @@ extension UIScrollView {
     
     public var sunnerRefreshHeader: SunnerRefreshHeader? {
         get {
-            if let header = objc_getAssociatedObject(self, &sunnerRefreshHeaderKey) as? SunnerRefreshHeader {
-                return header
-            }
-            return nil
+            return objc_getAssociatedObject(self, &sunnerRefreshHeaderKey) as? SunnerRefreshHeader
         }
         set {
-            if self.sunnerRefreshHeader != newValue {
-                self.sunnerRefreshHeader?.removeFromSuperview()
-                objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, nil, .OBJC_ASSOCIATION_ASSIGN)
-                
-                if let newValue = newValue {
-                    // sunnerRefreshHeader被insertSubview后, 不需要retain
-                    self.insertSubview(newValue, at: 0)
-                    objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
-                }
-            }
+            objc_setAssociatedObject(self, &sunnerRefreshHeaderKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
     public var sunnerRefreshFooter: SunnerRefreshFooter? {
         get {
-            if let footer = objc_getAssociatedObject(self, &sunnerRefreshFooterKey) as? SunnerRefreshFooter {
-                return footer
-            }
-            return nil
+            return objc_getAssociatedObject(self, &sunnerRefreshFooterKey) as? SunnerRefreshFooter
         }
         set {
-            if self.sunnerRefreshFooter != newValue {
-                self.sunnerRefreshFooter?.removeFromSuperview()
-                objc_setAssociatedObject(self, &sunnerRefreshFooterKey, nil, .OBJC_ASSOCIATION_ASSIGN)
-                
-                if let newValue = newValue {
-                    // sunnerRefreshFooter被insertSubview后, 不需要retain
-                    self.insertSubview(newValue, at: 0)
-                    objc_setAssociatedObject(self, &sunnerRefreshFooterKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
-                }
-            }
+            objc_setAssociatedObject(self, &sunnerRefreshFooterKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
 }
