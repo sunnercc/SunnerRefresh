@@ -20,26 +20,20 @@ public class SunnerRefreshFooter: SunnerRefreshBase {
     }
     
     public override func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-//        print(self.scrollview?.contentOffset)
-        let s = (self.scrollview?.contentSize.height)! - (self.scrollview?.contentOffset.y)! - (self.scrollview?.frame.size.height)! - (self.scrollview?.sunner_insetB)!
-        print(s)
-        /*
         if let object = object as? NSObject,
             let keyPath = keyPath {
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentOffsetKeyPath
             {
-                let offsetY = (self.scrollview?.contentOffset.y)!
-                let insetT = (self.scrollview?.sunner_insetT)!
-                let dis = offsetY + insetT
+                let dis = (self.scrollview?.contentSize.height)! - (self.scrollview?.contentOffset.y)! - (self.scrollview?.frame.size.height)! + (self.scrollview?.sunner_insetB)!
                 if dis >= 0
                 {
                     self.state = .idle
                 }
-                else if dis < 0 && dis >= -sunnerRefreshHeaderHeight
+                else if dis < 0 && dis >= -sunnerRefreshFooterHeight
                 {
                     self.state = .drag
                 }
-                else if dis < -sunnerRefreshHeaderHeight
+                else if dis < -sunnerRefreshFooterHeight
                 {
                     self.state = .will
                 }
@@ -60,7 +54,25 @@ public class SunnerRefreshFooter: SunnerRefreshBase {
                     }
                 }
             }
-        }*/
+        }
     }
     
+    override public func beginRefresh() {
+        super.beginRefresh()
+        DispatchQueue.main.async {
+            self.state = .refreshing
+            let y = (self.scrollview?.contentSize.height)! + sunnerRefreshFooterHeight - (self.scrollview?.frame.size.height)! + (self.scrollview?.sunner_insetB)!
+            let offset = CGPoint(x: (self.scrollview?.contentOffset.x)!, y: y)
+            self.scrollview?.setContentOffset(offset, animated: true)
+        }
+    }
+    
+    override public func endRefresh() {
+        super.endRefresh()
+        DispatchQueue.main.async {
+            let y = (self.scrollview?.contentSize.height)! - (self.scrollview?.frame.size.height)! + (self.scrollview?.sunner_insetB)!
+            let offset = CGPoint(x: (self.scrollview?.contentOffset.x)!, y: y)
+            self.scrollview?.setContentOffset(offset, animated: true)
+        }
+    }
 }

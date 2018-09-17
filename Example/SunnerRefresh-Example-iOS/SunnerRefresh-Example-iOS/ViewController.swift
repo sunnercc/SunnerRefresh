@@ -51,7 +51,14 @@ class ViewController: UIViewController {
     }
     
     @objc func footerAction() {
-        print("footerAction")
+        DispatchQueue.global().async {
+            for i in 0...100000 {
+                print(i)
+            }
+            DispatchQueue.main.async {
+                self.tableview?.sunnerRefreshFooter?.endRefresh()
+            }
+        }
     }
 }
 
