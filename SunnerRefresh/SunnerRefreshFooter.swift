@@ -22,6 +22,9 @@ public class SunnerRefreshFooter: SunnerRefreshBase {
     public override func refreshObserveValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let object = object as? NSObject,
             let keyPath = keyPath {
+            if self.state == .refreshing {
+                return
+            }
             if object.isEqual(self.scrollview) && keyPath == sunnerRefreshScrollviewContentOffsetKeyPath
             {
                 let dis = (self.scrollview?.contentSize.height)! - (self.scrollview?.contentOffset.y)! - (self.scrollview?.frame.size.height)! + (self.scrollview?.sunner_insetB)!
@@ -46,10 +49,7 @@ public class SunnerRefreshFooter: SunnerRefreshBase {
             {
                 if self.scrollview?.panGestureRecognizer.state == UIGestureRecognizerState.ended
                 {
-                    if self.state == .refreshing {
-                        return
-                    }
-                    else if self.state == .will {
+                    if self.state == .will {
                         self.beginRefresh()
                     }
                 }
@@ -70,6 +70,7 @@ public class SunnerRefreshFooter: SunnerRefreshBase {
     override public func endRefresh() {
         super.endRefresh()
         DispatchQueue.main.async {
+            self.state = .idle
             let y = (self.scrollview?.contentSize.height)! - (self.scrollview?.frame.size.height)! + (self.scrollview?.sunner_insetB)!
             let offset = CGPoint(x: (self.scrollview?.contentOffset.x)!, y: y)
             self.scrollview?.setContentOffset(offset, animated: true)

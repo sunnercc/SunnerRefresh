@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         let tableview = UITableView(frame: self.view.bounds, style: .plain)
-        tableview.backgroundColor = .yellow
         tableview.delegate = self
         tableview.dataSource = self
         self.view.addSubview(tableview)
@@ -28,13 +27,11 @@ class ViewController: UIViewController {
         tableview.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellID)
         self.tableview = tableview
         
-        let header = SunnerRefreshHeader(inView: tableview)
-        header.backgroundColor = .red
+        let header = SunnerIndicatorRefreshHeader(inView: tableview)
         header.refreshing(target: self, action: #selector(self.headerAction))
         tableview.sunnerRefreshHeader = header
 
-        let footer = SunnerRefreshFooter(inView: tableview)
-        footer.backgroundColor = .blue
+        let footer = SunnerIndicatorRefreshFooter(inView: tableview)
         footer.refreshing(target: self, action: #selector(self.footerAction))
         tableview.sunnerRefreshFooter = footer
     }
@@ -67,11 +64,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 40
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         cell.detailTextLabel?.text = "detail text label"

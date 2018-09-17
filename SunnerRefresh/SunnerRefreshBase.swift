@@ -12,15 +12,30 @@ public class SunnerRefreshBase: UIView {
 
     var target: NSObject? = nil
     var action: Selector? = nil
-    var state: SunnerRefreshState = .idle
     var scrollview: UIScrollView?
+    
+    fileprivate var _state: SunnerRefreshState = .idle
+    var state: SunnerRefreshState {
+        set {
+            _state = newValue
+            if _state == .will || _state == .refreshing {
+                self.isHidden = false
+            } else {
+                self.isHidden = true
+            }
+        }
+        get {
+            return _state
+        }
+    }
+    
     
     public convenience init(inView: UIScrollView) {
         self.init(frame: .zero)
         self.scrollview = inView
         self.addObservers()
         self.addSelf()
-        self.alpha = 0.2
+        self.addSelfChilds()
     }
     
     override public init(frame: CGRect) {
@@ -37,9 +52,13 @@ public class SunnerRefreshBase: UIView {
     }
     
     public override func layoutSubviews() {
-        let rect = self.layoutFrame(scrollview: self.scrollview!)
-        let convertRect = convert(rect, to: self.scrollview?.superview)
-        self.frame = convertRect
+        if self.frame.equalTo(.zero) {
+            let rect = self.layoutFrame(scrollview: self.scrollview!)
+            let convertRect = convert(rect, to: self.scrollview?.superview)
+            self.frame = convertRect
+        } else {
+            self.layoutSelfChildsFrames()
+        }
     }
     
     public func layoutFrame(scrollview: UIScrollView) -> CGRect {
@@ -55,6 +74,14 @@ public class SunnerRefreshBase: UIView {
     }
     
     public func endRefresh() {
+        
+    }
+    
+    public func addSelfChilds() {
+        
+    }
+    
+    public func layoutSelfChildsFrames() {
         
     }
 }
